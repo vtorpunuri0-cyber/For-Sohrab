@@ -44,7 +44,7 @@ yesBtn.addEventListener("click", () => {
 
   noBtn.disabled = true;
   noBtn.style.transform = "none";
-  yesBtn.textContent = "YES (locked in) 💍";
+  yesBtn.textContent = "YES I pronounce you buddy";
 });
 
 noBtn.addEventListener("mouseenter", () => {
