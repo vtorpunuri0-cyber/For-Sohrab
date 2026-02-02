@@ -4,12 +4,12 @@ const msg    = document.getElementById("msg");
 const details = document.getElementById("details");
 
 const noPhrases = [
-  "buddy… be serious 😭",
-  "ok but you’re literally the sweetest 🥺",
-  "remember the UCLA dining hall swipe?? iconic. 💳✨",
-  "you’re too smart for this decision to be wrong 😌",
-  "I did NOT want to admit you’re funny… but you are 😭",
-  "last chance… I’m begging respectfully 💘"
+  "okay so you're gay",
+  "so does ryan have it in your ass or what",
+  "alright i'll let you nut in my butt",
+  "bro ok i'll wear a ryan alavi mask pls bro",
+  "oh i wouldn't do that if i were you",
+  "last chance… *Na na.. Na na* a la Playboi Carti with my pants down"
 ];
 
 let noCount = 0;
