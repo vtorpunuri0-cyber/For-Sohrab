@@ -38,7 +38,7 @@ function popConfetti() {
 }
 
 yesBtn.addEventListener("click", () => {
-  msg.textContent = "YAYYYY 😭💖 okay my buddy… you’re my Valentine now.";
+  msg.textContent = "YIPPEEEEE okay my buddy… you’re my Valentine now.";
   popConfetti();
   details.hidden = false;
 
