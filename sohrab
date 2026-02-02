@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>💌 Valentine?</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card" role="main">
+    <div class="hearts" aria-hidden="true"></div>
+
+    <h1>Will you be my Valentine? 💘</h1>
+    <p class="sub">No pressure. But also… please say yes 🥺</p>
+
+    <div class="buttons">
+      <button id="yesBtn" class="btn yes" type="button">YES 💖</button>
+      <button id="noBtn" class="btn no" type="button">no 😭</button>
+    </div>
+
+    <p id="msg" class="msg" aria-live="polite"></p>
+
+    <footer class="footer">
+      <span>made with questionable courage</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+:root{
+  --bg1:#ff8fb2;
+  --bg2:#ffd1dc;
+  --card:#ffffffcc;
+  --text:#241122;
+  --yes:#ff3b7a;
+  --no:#5b3b5f;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text);
+  background: radial-gradient(circle at 20% 20%, #fff 0 10%, transparent 11%),
+              radial-gradient(circle at 80% 30%, #fff 0 8%, transparent 9%),
+              radial-gradient(circle at 40% 80%, #fff 0 6%, transparent 7%),
+              linear-gradient(135deg, var(--bg1), var(--bg2));
+  overflow:hidden;
+}
+
+.card{
+  width:min(560px, 92vw);
+  padding:28px 24px 18px;
+  border-radius:22px;
+  background:var(--card);
+  backdrop-filter: blur(10px);
+  border:1px solid #ffffff80;
+  box-shadow: 0 20px 60px #00000022;
+  text-align:center;
+  position:relative;
+}
+
+h1{
+  margin:8px 0 6px;
+  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  letter-spacing:-0.02em;
+}
+
+.sub{
+  margin:0 0 20px;
+  opacity:.85;
+  font-size:1.05rem;
+}
+
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin:12px 0 10px;
+}
+
+.btn{
+  border:none;
+  cursor:pointer;
+  padding:14px 18px;
+  border-radius:999px;
+  font-weight:800;
+  font-size:1.05rem;
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  box-shadow: 0 10px 22px #00000018;
+  user-select:none;
+}
+
+.btn:active{ transform: translateY(1px) scale(0.99); }
+
+.yes{
+  background: linear-gradient(135deg, #ff2f74, #ff6aa2);
+  color:white;
+}
+.yes:hover{ filter:brightness(1.05); transform: translateY(-1px); }
+
+.no{
+  background: #ffffff;
+  color:var(--no);
+  border:2px solid #00000010;
+}
+.no:hover{ transform: translateY(-1px); }
+
+.msg{
+  min-height:2.2em;
+  margin:12px 0 0;
+  font-size:1.1rem;
+  font-weight:700;
+}
+
+.footer{
+  margin-top:18px;
+  opacity:.65;
+  font-size:.9rem;
+}
+
+/* floating hearts */
+.hearts{
+  position:absolute;
+  inset:-40px -40px auto -40px;
+  height:140px;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 10% 70%, #ff3b7a66 0 10px, transparent 11px),
+    radial-gradient(circle at 30% 20%, #ff3b7a55 0 8px, transparent 9px),
+    radial-gradient(circle at 55% 55%, #ff3b7a44 0 7px, transparent 8px),
+    radial-gradient(circle at 80% 30%, #ff3b7a66 0 9px, transparent 10px),
+    radial-gradient(circle at 92% 78%, #ff3b7a55 0 7px, transparent 8px);
+  filter: blur(0.2px);
+  opacity:.9;
+}
+const yesBtn = document.getElementById("yesBtn");
+const noBtn  = document.getElementById("noBtn");
+const msg    = document.getElementById("msg");
+
+const noPhrases = [
+  "are you sure 😭",
+  "please reconsider 🥺",
+  "what if I say pretty please 💘",
+  "ok but like… I baked you cookies (imaginary) 🍪",
+  "this is my villain origin story 😔",
+  "last chance… for real this time 👀",
+];
+
+let noCount = 0;
+
+function popConfetti() {
+  // tiny emoji confetti without libraries
+  const emojis = ["💖","💘","💝","💕","🌸","✨"];
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement("span");
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.position = "fixed";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = "-10px";
+    s.style.fontSize = (14 + Math.random() * 20) + "px";
+    s.style.transform = `translateY(0) rotate(${Math.random()*360}deg)`;
+    s.style.transition = "transform 1.4s ease, opacity 1.4s ease";
+    s.style.zIndex = 9999;
+    document.body.appendChild(s);
+
+    requestAnimationFrame(() => {
+      s.style.transform = `translateY(${110 + Math.random() * 60}vh) rotate(${Math.random()*720}deg)`;
+      s.style.opacity = "0";
+    });
+
+    setTimeout(() => s.remove(), 1500);
+  }
+}
+
+yesBtn.addEventListener("click", () => {
+  msg.textContent = "YAYYYYY 💖💖💖 you just made my whole year.";
+  popConfetti();
+  noBtn.disabled = true;
+  yesBtn.textContent = "YES (locked in) 💍";
+});
+
+noBtn.addEventListener("mouseenter", () => {
+  // make it dodge a bit
+  const maxX = 220, maxY = 140;
+  const x = (Math.random() * 2 - 1) * maxX;
+  const y = (Math.random() * 2 - 1) * maxY;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+noBtn.addEventListener("click", () => {
+  noCount++;
+  msg.textContent = noPhrases[Math.min(noCount - 1, noPhrases.length - 1)];
+  // make YES button grow slightly each "no"
+  const scale = 1 + Math.min(noCount * 0.08, 0.65);
+  yesBtn.style.transform = `scale(${scale})`;
+});
